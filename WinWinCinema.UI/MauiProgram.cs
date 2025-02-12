@@ -15,7 +15,18 @@ namespace WinWinCinema.UI
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            builder.Services.AddApiClientService(x => x.ApiBaseAddress = "http://10.0.2.2:5059");
+            builder.Services.AddApiClientService(x =>
+            {
+                if (DeviceInfo.Platform == DevicePlatform.Android)
+                {
+                    x.ApiBaseAddress = "http://10.0.2.2:5059";
+                }
+                else
+                {
+                    x.ApiBaseAddress = "http://localhost:5059"; // Adjust as needed for other platforms
+                }
+            });
+
             builder.Services.AddTransient<MainPageViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();

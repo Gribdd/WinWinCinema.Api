@@ -1,4 +1,4 @@
-﻿using System.   Net.Http.Json;
+﻿using System.Net.Http.Json;
 using WinWinCinema.ApiClient.Models;
 using WinWinCinema.ApiClient.Models.ApiModels;
 
@@ -11,11 +11,14 @@ namespace WinWinCinema.ApiClient
         public ApiClientService(ApiClientOptions clientOptions)
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new System.Uri(clientOptions.ApiBaseAddress);
+            _httpClient.BaseAddress = new Uri(clientOptions.ApiBaseAddress);
+            Console.WriteLine($"Base address: {clientOptions.ApiBaseAddress}");
         }
 
         public async Task<List<User>?> GetUsersAsync()  
         {
+            Console.WriteLine($"Base address: {_baseUserAddress}");
+            Console.WriteLine("Url: " + _httpClient.BaseAddress + _baseUserAddress);
             return await _httpClient.GetFromJsonAsync<List<User>>(_baseUserAddress);
         }
 
