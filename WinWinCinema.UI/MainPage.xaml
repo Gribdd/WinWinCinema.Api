@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:WinWinCinema.UI.Models"
+             xmlns:vm="clr-namespace:WinWinCinema.UI.ViewModels"
+             x:DataType="vm:MainPageViewModel"
+             x:Class="WinWinCinema.UI.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <!-- Other UI elements like Image, Labels, and Buttons -->
+
+            <Label
+                Text="User List"
+                FontSize="24"
+                HorizontalOptions="Center"
+                Padding="10" />
+
+            <!-- CollectionView to display the list of users -->
+            <CollectionView
+                ItemsSource="{Binding Users}"
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:User">
+                        <Border Padding="10" Margin="5">
+                            <StackLayout>
+                                <Label Text="{Binding Fname}" FontAttributes="Bold" />
+                                <Label Text="{Binding Lname}" />
+                                <Label Text="{Binding Email}" />
+                                <Label Text="{Binding Mobile}" />
+                                <Label Text="{Binding Birthdate}" />
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
