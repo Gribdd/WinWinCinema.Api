@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinWinCinema.ApiClient", "W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinWinCinema.UI", "WinWinCinema.UI\WinWinCinema.UI.csproj", "{364D1CCB-A765-4086-A50A-B5968976C2B1}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{333AF838-B4B8-471A-BE1E-077F3E8D456A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{364D1CCB-A765-4086-A50A-B5968976C2B1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{364D1CCB-A765-4086-A50A-B5968976C2B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{364D1CCB-A765-4086-A50A-B5968976C2B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{333AF838-B4B8-471A-BE1E-077F3E8D456A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{333AF838-B4B8-471A-BE1E-077F3E8D456A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{333AF838-B4B8-471A-BE1E-077F3E8D456A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{333AF838-B4B8-471A-BE1E-077F3E8D456A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

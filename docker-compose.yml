@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  winwincinema.api:
+    build:
+      context: WinWinCinema.Api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      sqlserver:
+        condition: service_healthy  # Ensures SQL Server is ready
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - winwincinema-network
+    restart: on-failure
+
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: "sqlserver"
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Password12345!"
+    networks:
+      - winwincinema-network
+    volumes:
+      - sqlvolume:/var/opt/mssql  #Ensures DB persists after container stops
+    
+
+networks:
+  winwincinema-network:
+
+volumes:
+  sqlvolume:

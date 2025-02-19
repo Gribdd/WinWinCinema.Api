@@ -20,6 +20,7 @@ namespace WinWinCinema.UI
                 if (DeviceInfo.Platform == DevicePlatform.Android)
                 {
                     x.ApiBaseAddress = "http://10.0.2.2:5059";
+                    //x.ApiBaseAddress = "https://ebisx.com/";
                 }
                 else
                 {
