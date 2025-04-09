@@ -3,7 +3,7 @@ version: '3.8'
 services:
   winwincinema.api:
     build:
-      context: WinWinCinema.Api
+      context: ./WinWinCinema.Api
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -33,7 +33,7 @@ services:
       test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P Password12345! -C -Q 'SELECT 1' || exit 1"]
       interval: 10s
       retries: 5
-      start_period: 30s
+      start_period: 60s
       timeout: 5s
     
 

@@ -12,8 +12,8 @@ using WinWinCinema.Api.Data;
 namespace WinWinCinema.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250218072955_Initial")]
-    partial class Initial
+    [Migration("20250220075132_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

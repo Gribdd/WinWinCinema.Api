@@ -11,7 +11,6 @@ public static class DbInitializer
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             // Apply any pending migrations
-            await context.Database.MigrateAsync();
 
             // Seed the database
             await SeedUsersAsync(context);
@@ -61,8 +60,7 @@ public static class DbInitializer
                     BarangayId = Guid.NewGuid(),
                     IsDeleted = false,
                     FavoriteMovies = new List<Guid>()
-                }
-                ,
+                },
                 new User
                 {
                     Id = Guid.NewGuid(),

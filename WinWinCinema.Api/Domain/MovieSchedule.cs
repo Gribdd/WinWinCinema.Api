@@ -1,0 +1,23 @@
+﻿
+using WinWinCinema.Api.Domain.Common;
+
+namespace WinWinCinema.Api.Domain;
+
+public class MovieSchedule : IEntity
+{
+    public Guid Id { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
+    public bool IsDeleted { get; set; }
+
+    public DateTime ShowTime { get; set; }
+    public DateTime EndTime { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal Price { get; set; }
+
+    public Guid CinemaId { get; set; }
+    public ICollection<Seat> LeftWingSeats { get; set; } = new List<Seat>();
+    public ICollection<Seat> CenterSeats { get; set; } = new List<Seat>();
+    public ICollection<Seat> RightWingSeats { get; set; } = new List<Seat>();
+}
