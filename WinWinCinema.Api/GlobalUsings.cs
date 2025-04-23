@@ -1,4 +1,5 @@
 ﻿global using WinWinCinema.Api.Domain;
+global using WinWinCinema.Api.Domain.SupportTickets;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using WinWinCinema.Api.Data;

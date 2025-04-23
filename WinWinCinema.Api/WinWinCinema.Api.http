@@ -1,10 +1,239 @@
-@WinWinCinema.Api_HostAddress = http://localhost:8080
+@WinWinCinema.Api_HostAddress = http://localhost:8080/api
 
-GET {{WinWinCinema.Api_HostAddress}}/weatherforecast/
+###
+GET {{WinWinCinema.Api_HostAddress}}/Users
 Accept: application/json
 
 ###
+POST {{WinWinCinema.Api_HostAddress}}/Users
+Content-Type: application/json
+Accept: application/json
 
-GET {{WinWinCinema.Api_HostAddress}}/Users
+{
+  "fName": "John",
+  "lName": "Doe",
+  "email": "johndoe@example.com",
+  "password": "password123",
+  "mobileNumber": "123-456-7890",
+  "birthday": "1990-01-01",
+  "cardHolder": "John Doe",
+  "cardNumber": "4111111111111111",
+  "expiry": "12/25",
+  "cvv": "123",
+  "cityId": null,
+  "barangayId": null,
+  "favoriteMovies": []
+}
 
 ###
+GET {{WinWinCinema.Api_HostAddress}}/Cinemas
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Cinemas
+Content-Type: application/json
+
+{
+  "cityId": "4012ddae-cb3a-4e2d-88f3-08dd7cf684fb",
+  "barangayId": "afa63239-de68-4bea-88f4-08dd7cf684fb"
+}
+
+
+###
+GET {{WinWinCinema.Api_HostAddress}}/Locations
+
+###
+# Movies
+GET {{WinWinCinema.Api_HostAddress}}/Movies
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Movies
+Content-Type: application/json
+
+{
+  "title": "Sample Movie",
+  "description": "This is a sample movie description.",
+  "distributor": "Sample Distributor",
+  "featuredImage": "https://example.com/featured.jpg",
+  "bannerImage": "https://example.com/banner.jpg",
+  "cinemas": ["498de0ca-732d-42f1-7352-08dd7cf68543"],
+  "schedules":[]
+}
+
+###
+# Seats
+GET {{WinWinCinema.Api_HostAddress}}/Seats
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Seats
+Content-Type: application/json
+
+{
+  "row": 5,
+  "column": 10,
+  "isOccupied": false
+}
+
+### Locations
+GET {{WinWinCinema.Api_HostAddress}}/Locations
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Locations
+Content-Type: application/json
+
+{
+  "name": "Sample City",
+  "xAxis": 123.456,
+  "yAxis": 78.910
+}
+
+
+### Addresses
+GET {{WinWinCinema.Api_HostAddress}}/Addresses
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Addresses
+Content-Type: application/json
+
+{
+  "cityId": "00000000-0000-0000-0000-000000000000",
+  "barangays": ["00000000-0000-0000-0000-000000000000"]
+}
+
+###
+
+### Movie Schedules
+GET {{WinWinCinema.Api_HostAddress}}/MovieSchedules
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/MovieSchedules
+Content-Type: application/json
+
+{
+  "showTime": "2023-12-01T14:00:00",
+  "endTime": "2023-12-01T16:00:00",
+  "price": 15.99,
+  "cinemaId": "00000000-0000-0000-0000-000000000000",
+  "movieId": "00000000-0000-0000-0000-000000000000"
+}
+
+
+### Snacks
+GET {{WinWinCinema.Api_HostAddress}}/Snacks
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Snacks
+Content-Type: application/json
+
+{
+  "name": "Popcorn",
+  "description": "Delicious buttered popcorn.",
+  "price": 5.99,
+  "image": "https://example.com/popcorn.jpg"
+}
+
+###
+
+### Orders
+GET {{WinWinCinema.Api_HostAddress}}/Orders
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Orders
+Content-Type: application/json
+
+{
+  "userId": "00000000-0000-0000-0000-000000000000",
+  "movieId": "00000000-0000-0000-0000-000000000000",
+  "cinemaId": "00000000-0000-0000-0000-000000000000",
+  "scheduleId": "00000000-0000-0000-0000-000000000000",
+  "ticketQuantity": 2,
+  "cardHolder": "John Doe",
+  "cardNumber": "4111111111111111",
+  "expiry": "12/25",
+  "cvv": "123"
+}
+
+###
+
+### Tickets
+GET {{WinWinCinema.Api_HostAddress}}/Tickets
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Tickets
+Content-Type: application/json
+
+{
+  "userId": "00000000-0000-0000-0000-000000000000",
+  "movieId": "00000000-0000-0000-0000-000000000000",
+  "cinemaId": "00000000-0000-0000-0000-000000000000",
+  "movieScheduleId": "00000000-0000-0000-0000-000000000000"
+}
+
+###
+
+### Transactions
+GET {{WinWinCinema.Api_HostAddress}}/Transactions
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Transactions
+Content-Type: application/json
+
+{
+  "userId": "00000000-0000-0000-0000-000000000000",
+  "amount": 50.00,
+  "transactionDate": "2023-12-01T10:00:00"
+}
+
+
+### Support Tickets
+GET {{WinWinCinema.Api_HostAddress}}/SupportTickets
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/SupportTickets
+Content-Type: application/json
+
+{
+  "userId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "messages": [],
+  "subject": "wow description"
+}
+
+###
+
+### Messages
+GET {{WinWinCinema.Api_HostAddress}}/Messages
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/Messages
+Content-Type: application/json
+
+{
+  "senderId": "00000000-0000-0000-0000-000000000000",
+  "receiverId": "00000000-0000-0000-0000-000000000000",
+  "content": "Hello, how can I help you?",
+  "sentAt": "2023-12-01T10:00:00"
+}
+
+
+### Snack Orders
+GET {{WinWinCinema.Api_HostAddress}}/SnackOrders
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/SnackOrders
+Content-Type: application/json
+{
+  "orderId": "00000000-0000-0000-0000-000000000000",
+  "snackId": "00000000-0000-0000-0000-000000000000",
+  "quantity": 2
+}
+
+### Snack Stamps
+GET {{WinWinCinema.Api_HostAddress}}/SnackStamps
+
+###
+POST {{WinWinCinema.Api_HostAddress}}/SnackStamps
+Content-Type: application/json
+{
+  "userId": "00000000-0000-0000-0000-000000000000",
+  "snackId": "00000000-0000-0000-0000-000000000000",
+  "stamps": 5
+}

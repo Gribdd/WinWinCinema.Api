@@ -12,8 +12,8 @@ using WinWinCinema.Api.Data;
 namespace WinWinCinema.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250220075132_init")]
-    partial class init
+    [Migration("20250416134433_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,10 +68,19 @@ namespace WinWinCinema.Api.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("MovieId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BarangayId");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("MovieId");
 
                     b.ToTable("Cinemas");
                 });
@@ -101,6 +110,10 @@ namespace WinWinCinema.Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CinemaId");
+
+                    b.HasIndex("MovieId");
 
                     b.HasIndex("ScheduleId");
 
@@ -149,10 +162,6 @@ namespace WinWinCinema.Api.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("BannerImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.PrimitiveCollection<string>("CinemasGuid")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -218,6 +227,8 @@ namespace WinWinCinema.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CinemaId");
+
                     b.HasIndex("MovieId");
 
                     b.ToTable("MovieSchedules");
@@ -259,16 +270,8 @@ namespace WinWinCinema.Api.Migrations
                     b.Property<Guid>("ScheduleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.PrimitiveCollection<string>("SnackStamps")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TicketQuantity")
                         .HasColumnType("int");
-
-                    b.PrimitiveCollection<string>("Tickets")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -278,7 +281,13 @@ namespace WinWinCinema.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CinemaId");
+
+                    b.HasIndex("MovieId");
+
                     b.HasIndex("ScheduleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -301,15 +310,6 @@ namespace WinWinCinema.Api.Migrations
                     b.Property<bool>("IsOccupied")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("MovieScheduleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("MovieScheduleId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("MovieScheduleId2")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
@@ -320,12 +320,6 @@ namespace WinWinCinema.Api.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MovieScheduleId");
-
-                    b.HasIndex("MovieScheduleId1");
-
-                    b.HasIndex("MovieScheduleId2");
 
                     b.HasIndex("OrderId");
 
@@ -359,6 +353,9 @@ namespace WinWinCinema.Api.Migrations
                     b.Property<Guid?>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("OrderId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -368,6 +365,8 @@ namespace WinWinCinema.Api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("OrderId1");
 
                     b.ToTable("Snacks");
                 });
@@ -427,6 +426,9 @@ namespace WinWinCinema.Api.Migrations
                     b.Property<Guid>("SnackId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -434,6 +436,18 @@ namespace WinWinCinema.Api.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CinemaId");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("MovieScheduledId");
+
+                    b.HasIndex("SnackId");
+
+                    b.HasIndex("TransactionId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("SnackStamps");
                 });
@@ -494,6 +508,8 @@ namespace WinWinCinema.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("SupportTickets");
                 });
 
@@ -504,9 +520,6 @@ namespace WinWinCinema.Api.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CinemaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CompletedOrderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
@@ -521,7 +534,13 @@ namespace WinWinCinema.Api.Migrations
                     b.Property<Guid>("MovieScheduleId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("SeatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TransactionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -532,7 +551,19 @@ namespace WinWinCinema.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompletedOrderId");
+                    b.HasIndex("CinemaId");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("MovieScheduleId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("SeatId");
+
+                    b.HasIndex("TransactionId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
@@ -570,14 +601,6 @@ namespace WinWinCinema.Api.Migrations
                     b.Property<Guid>("MovieId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.PrimitiveCollection<string>("SnackStamps")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.PrimitiveCollection<string>("Tickets")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -588,6 +611,12 @@ namespace WinWinCinema.Api.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CinemaId");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
                 });
@@ -634,10 +663,6 @@ namespace WinWinCinema.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.PrimitiveCollection<string>("FavoriteMovies")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -658,6 +683,10 @@ namespace WinWinCinema.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BarangayId");
+
+                    b.HasIndex("CityId");
+
                     b.ToTable("Users");
                 });
 
@@ -672,13 +701,52 @@ namespace WinWinCinema.Api.Migrations
                     b.Navigation("City");
                 });
 
+            modelBuilder.Entity("WinWinCinema.Api.Domain.Cinema", b =>
+                {
+                    b.HasOne("WinWinCinema.Api.Domain.Location", "Barangay")
+                        .WithMany()
+                        .HasForeignKey("BarangayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Location", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Movie", null)
+                        .WithMany("Cinemas")
+                        .HasForeignKey("MovieId");
+
+                    b.Navigation("Barangay");
+
+                    b.Navigation("City");
+                });
+
             modelBuilder.Entity("WinWinCinema.Api.Domain.CompletedOrder", b =>
                 {
+                    b.HasOne("WinWinCinema.Api.Domain.Cinema", "Cinema")
+                        .WithMany()
+                        .HasForeignKey("CinemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WinWinCinema.Api.Domain.MovieSchedule", "Schedule")
                         .WithMany()
                         .HasForeignKey("ScheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cinema");
+
+                    b.Navigation("Movie");
 
                     b.Navigation("Schedule");
                 });
@@ -692,36 +760,56 @@ namespace WinWinCinema.Api.Migrations
 
             modelBuilder.Entity("WinWinCinema.Api.Domain.MovieSchedule", b =>
                 {
+                    b.HasOne("WinWinCinema.Api.Domain.Cinema", "Cinema")
+                        .WithMany()
+                        .HasForeignKey("CinemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WinWinCinema.Api.Domain.Movie", null)
                         .WithMany("Schedules")
                         .HasForeignKey("MovieId");
+
+                    b.Navigation("Cinema");
                 });
 
             modelBuilder.Entity("WinWinCinema.Api.Domain.Order", b =>
                 {
+                    b.HasOne("WinWinCinema.Api.Domain.Cinema", "Cinema")
+                        .WithMany()
+                        .HasForeignKey("CinemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WinWinCinema.Api.Domain.MovieSchedule", "Schedule")
                         .WithMany()
                         .HasForeignKey("ScheduleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WinWinCinema.Api.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cinema");
+
+                    b.Navigation("Movie");
+
                     b.Navigation("Schedule");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WinWinCinema.Api.Domain.Seat", b =>
                 {
-                    b.HasOne("WinWinCinema.Api.Domain.MovieSchedule", null)
-                        .WithMany("CenterSeats")
-                        .HasForeignKey("MovieScheduleId");
-
-                    b.HasOne("WinWinCinema.Api.Domain.MovieSchedule", null)
-                        .WithMany("LeftWingSeats")
-                        .HasForeignKey("MovieScheduleId1");
-
-                    b.HasOne("WinWinCinema.Api.Domain.MovieSchedule", null)
-                        .WithMany("RightWingSeats")
-                        .HasForeignKey("MovieScheduleId2");
-
                     b.HasOne("WinWinCinema.Api.Domain.Order", null)
                         .WithMany("SelectedSeats")
                         .HasForeignKey("OrderId");
@@ -732,6 +820,10 @@ namespace WinWinCinema.Api.Migrations
                     b.HasOne("WinWinCinema.Api.Domain.Order", null)
                         .WithMany("SelectedSnacks")
                         .HasForeignKey("OrderId");
+
+                    b.HasOne("WinWinCinema.Api.Domain.Order", null)
+                        .WithMany("SnackStamps")
+                        .HasForeignKey("OrderId1");
                 });
 
             modelBuilder.Entity("WinWinCinema.Api.Domain.SnackOrder", b =>
@@ -745,6 +837,53 @@ namespace WinWinCinema.Api.Migrations
                     b.Navigation("Snack");
                 });
 
+            modelBuilder.Entity("WinWinCinema.Api.Domain.SnackStamp", b =>
+                {
+                    b.HasOne("WinWinCinema.Api.Domain.Cinema", "Cinema")
+                        .WithMany()
+                        .HasForeignKey("CinemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.MovieSchedule", "MovieScheduled")
+                        .WithMany()
+                        .HasForeignKey("MovieScheduledId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Snack", "Snack")
+                        .WithMany()
+                        .HasForeignKey("SnackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Transaction", null)
+                        .WithMany("SnackStamps")
+                        .HasForeignKey("TransactionId");
+
+                    b.HasOne("WinWinCinema.Api.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cinema");
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("MovieScheduled");
+
+                    b.Navigation("Snack");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WinWinCinema.Api.Domain.SupportTickets.Message", b =>
                 {
                     b.HasOne("WinWinCinema.Api.Domain.SupportTickets.SupportTicket", null)
@@ -752,11 +891,112 @@ namespace WinWinCinema.Api.Migrations
                         .HasForeignKey("SupportTicketId");
                 });
 
+            modelBuilder.Entity("WinWinCinema.Api.Domain.SupportTickets.SupportTicket", b =>
+                {
+                    b.HasOne("WinWinCinema.Api.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WinWinCinema.Api.Domain.Ticket", b =>
                 {
-                    b.HasOne("WinWinCinema.Api.Domain.CompletedOrder", null)
+                    b.HasOne("WinWinCinema.Api.Domain.Cinema", "Cinema")
+                        .WithMany()
+                        .HasForeignKey("CinemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.MovieSchedule", "MovieSchedule")
+                        .WithMany()
+                        .HasForeignKey("MovieScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Order", null)
                         .WithMany("Tickets")
-                        .HasForeignKey("CompletedOrderId");
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("WinWinCinema.Api.Domain.Seat", "Seat")
+                        .WithMany()
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Transaction", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("TransactionId");
+
+                    b.HasOne("WinWinCinema.Api.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cinema");
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("MovieSchedule");
+
+                    b.Navigation("Seat");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WinWinCinema.Api.Domain.Transaction", b =>
+                {
+                    b.HasOne("WinWinCinema.Api.Domain.Cinema", "Cinema")
+                        .WithMany()
+                        .HasForeignKey("CinemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cinema");
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WinWinCinema.Api.Domain.User", b =>
+                {
+                    b.HasOne("WinWinCinema.Api.Domain.Location", "Barangay")
+                        .WithMany()
+                        .HasForeignKey("BarangayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WinWinCinema.Api.Domain.Location", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Barangay");
+
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("WinWinCinema.Api.Domain.Address", b =>
@@ -764,23 +1004,11 @@ namespace WinWinCinema.Api.Migrations
                     b.Navigation("Barangays");
                 });
 
-            modelBuilder.Entity("WinWinCinema.Api.Domain.CompletedOrder", b =>
-                {
-                    b.Navigation("Tickets");
-                });
-
             modelBuilder.Entity("WinWinCinema.Api.Domain.Movie", b =>
                 {
+                    b.Navigation("Cinemas");
+
                     b.Navigation("Schedules");
-                });
-
-            modelBuilder.Entity("WinWinCinema.Api.Domain.MovieSchedule", b =>
-                {
-                    b.Navigation("CenterSeats");
-
-                    b.Navigation("LeftWingSeats");
-
-                    b.Navigation("RightWingSeats");
                 });
 
             modelBuilder.Entity("WinWinCinema.Api.Domain.Order", b =>
@@ -788,11 +1016,22 @@ namespace WinWinCinema.Api.Migrations
                     b.Navigation("SelectedSeats");
 
                     b.Navigation("SelectedSnacks");
+
+                    b.Navigation("SnackStamps");
+
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("WinWinCinema.Api.Domain.SupportTickets.SupportTicket", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("WinWinCinema.Api.Domain.Transaction", b =>
+                {
+                    b.Navigation("SnackStamps");
+
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,6 +5,7 @@ namespace WinWinCinema.Api.Domain;
 
 public class MovieSchedule : IEntity
 {
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
@@ -16,8 +17,11 @@ public class MovieSchedule : IEntity
     [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
 
+    [ForeignKey(nameof(CinemaId))]
     public Guid CinemaId { get; set; }
-    public ICollection<Seat> LeftWingSeats { get; set; } = new List<Seat>();
-    public ICollection<Seat> CenterSeats { get; set; } = new List<Seat>();
-    public ICollection<Seat> RightWingSeats { get; set; } = new List<Seat>();
+    public Cinema? Cinema { get; set; }
+
+    //public ICollection<Seat> LeftWingSeats { get; set; } = new List<Seat>();
+    //public ICollection<Seat> CenterSeats { get; set; } = new List<Seat>();
+    //public ICollection<Seat> RightWingSeats { get; set; } = new List<Seat>();
 }

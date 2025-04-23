@@ -5,6 +5,7 @@ namespace WinWinCinema.Api.Domain;
 
 public class Seat : IEntity
 {
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }

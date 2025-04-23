@@ -5,17 +5,20 @@ namespace WinWinCinema.Api.Domain;
 
 public class Movie : IEntity
 {
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public bool IsDeleted { get; set; }
 
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string Distributor { get; set; }
-    public string FeaturedImage { get; set; }
-    public string BannerImage { get; set; }
+    public string Title { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public string Distributor { get; set; } = null!;
+    public string FeaturedImage { get; set; } = null!;
+    public string BannerImage { get; set; } = null!;
 
-    public ICollection<Guid> CinemasGuid { get; set; }
-    public ICollection<MovieSchedule> Schedules { get; set; }
+    public ICollection<Cinema> Cinemas { get; set; } = new List<Cinema>();
+    //public ICollection<Guid> CinemaGuid { get; set; } = new List<Guid>();
+
+    public ICollection<MovieSchedule> Schedules { get; set; } = new List<MovieSchedule>();
 }
