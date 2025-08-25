@@ -31,7 +31,7 @@ if (app.Environment.IsDevelopment())
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         // Ensure the database is deleted
-        dbContext.Database.EnsureDeleted();
+        //dbContext.Database.EnsureDeleted();
 
         // Ensure the database is created
         dbContext.Database.EnsureCreated();

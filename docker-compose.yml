@@ -1,44 +1,21 @@
-version: '3.8'
+name: winwincinema
 
 services:
   winwincinema.api:
+    image: ${DOCKER_REGISTRY-}winwincinemaapi
     build:
-      context: ./WinWinCinema.Api
+      context: WinWinCinema.Api
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-      - "8081:8081"
     depends_on:
-      sqlserver:
-        condition: service_healthy  # Ensures SQL Server is ready
+        - sql
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    networks:
-      - winwincinema-network
-    restart: on-failure
-
-  sqlserver:
-    image: "mcr.microsoft.com/mssql/server:2022-latest"
-    container_name: "sqlserver"
-    ports:
-      - "1433:1433"
+        - ASPDOTNETCORE_ENVIRONMENT=Development
+  sql: 
+    container_name: sql1
+    image: mcr.microsoft.com/mssql/server:2025-latest
     environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Password12345!"
-    networks:
-      - winwincinema-network
-    volumes:    
-      - sqlvolume:/var/opt/mssql  #Ensures DB persists after container stops
-    healthcheck:  # Waits until SQL Server is ready
-      test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P Password12345! -C -Q 'SELECT 1' || exit 1"]
-      interval: 10s
-      retries: 5
-      start_period: 60s
-      timeout: 5s
-    
-
-networks:
-  winwincinema-network:
-
-volumes:
-  sqlvolume:
+        ACCEPT_EULA: "Y"
+        MSSQL_SA_PASSWORD: "Your_password123"
+        MSSQL_PID: "Express"
+    ports: 
+     - "1433:1433"
