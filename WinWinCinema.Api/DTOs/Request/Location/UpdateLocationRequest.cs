@@ -3,5 +3,5 @@
 public record UpdateLocationRequest(
     Guid Id,
     string Name,
-    double XAxis,
-    double YAxis);
+    double? XAxis,
+    double? YAxis);

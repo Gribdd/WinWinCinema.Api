@@ -42,5 +42,28 @@ namespace WinWinCinema.Api.Controllers
             var createdLocation = await _locationService.CreateLocationAsync(createLocationRequest);
             return CreatedAtAction(nameof(GetLocation), new { id = createdLocation.Id }, createdLocation);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutLocation(Guid id, UpdateLocationRequest updateLocationRequest)
+        {
+            var result = await _locationService.UpdateLocationAsync(id, updateLocationRequest);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        // DELETE: api/Locations/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLocation(Guid id)
+        {
+            var result = await _locationService.SoftDeleteLocationAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
     }
 }

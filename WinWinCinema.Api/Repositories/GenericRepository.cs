@@ -85,7 +85,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         int id,
         params Expression<Func<TEntity, object>>[] includes)
     {
-        IQueryable<TEntity> query = _dbSet;
+        IQueryable<TEntity> query = _dbSet; 
 
         foreach (var include in includes)
         {
