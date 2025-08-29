@@ -1,4 +1,6 @@
-﻿namespace WinWinCinema.Api.Data;
+﻿using WinWinCinema.Api.Domain.SupportTickets;
+
+namespace WinWinCinema.Api.Data;
 
 public class ApplicationDbContext : DbContext
 {

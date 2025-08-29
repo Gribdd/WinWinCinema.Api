@@ -1,4 +1,6 @@
-﻿using WinWinCinema.Api.UnitOfWork;
+﻿using WinWinCinema.Api.DTOs.Request.Location;
+using WinWinCinema.Api.Services.Interfaces;
+using WinWinCinema.Api.UnitOfWork;
 
 namespace WinWinCinema.Api.Controllers
 {
@@ -6,18 +8,18 @@ namespace WinWinCinema.Api.Controllers
     [ApiController]
     public class LocationsController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILocationService _locationService;
 
-        public LocationsController(IUnitOfWork unitOfWork)
+        public LocationsController(ILocationService locationService)
         {
-            _unitOfWork = unitOfWork;
+            _locationService = locationService;
         }
 
         // GET: api/Locations
         [HttpGet]
         public async Task<IActionResult> GetLocations()
         {
-            var locations = await _unitOfWork.LocationRepository.GetAllAsync();
+            var locations = await _locationService.GetAllLocationsAsync();
             return Ok(locations);
         }
 
@@ -25,17 +27,20 @@ namespace WinWinCinema.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetLocation(Guid id)
         {
-            var location = await _unitOfWork.LocationRepository.GetByIdAsync(id);
-            return location == null ? NotFound() : Ok(location);
+            var location = await _locationService.GetLocationByIdAsync(id);
+            if (location == null)
+            {
+                return NotFound();
+            }
+            return Ok(location);
         }
 
         // POST: api/Locations
         [HttpPost]
-        public async Task<IActionResult> PostLocation(Location location)
+        public async Task<IActionResult> PostLocation(CreateLocationRequest createLocationRequest)
         {
-            await _unitOfWork.LocationRepository.AddAsync(location);
-            await _unitOfWork.SaveAsync();
-            return CreatedAtAction(nameof(GetLocation), new { id = location.Id }, location);
+            var createdLocation = await _locationService.CreateLocationAsync(createLocationRequest);
+            return CreatedAtAction(nameof(GetLocation), new { id = createdLocation.Id }, createdLocation);
         }
     }
 }

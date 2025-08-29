@@ -1,4 +1,7 @@
-﻿using WinWinCinema.Api.UnitOfWork;
+﻿using WinWinCinema.Api.Services.Interfaces;
+using WinWinCinema.Api.Services.Implementations;
+using WinWinCinema.Api.UnitOfWork;
+using WinWinCinema.Api.Mappings;
 
 namespace WinWinCinema.Api.Extensions;
 
@@ -7,7 +10,9 @@ internal static class ServiceCollectionExtension
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
 
+        services.AddAutoMapper(cfg => cfg.AddProfile<LocationProfile>());
         services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+        services.AddScoped<ILocationService, LocationService>();
         return services;
     }
 

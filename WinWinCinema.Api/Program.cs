@@ -1,18 +1,16 @@
 using WinWinCinema.Api.Extensions;
-
 var builder = WebApplication.CreateBuilder(args);
-{
-    builder.Services
-        .AddApplicationServices()
-        .AddDatabaseService(builder.Configuration)
-        .AddLogging(loggingBuilder =>
-        {
-            loggingBuilder.AddConsole();
-            loggingBuilder.AddDebug();
-        })
-        .AddSwaggerGen()
-        .AddControllers();
-}
+builder.Services
+    .AddApplicationServices()
+    .AddDatabaseService(builder.Configuration)
+    .AddLogging(loggingBuilder =>
+    {
+        loggingBuilder.AddConsole();
+        loggingBuilder.AddDebug();
+    })
+    .AddSwaggerGen()
+    .AddControllers();
+
 
 var app = builder.Build();
 {
