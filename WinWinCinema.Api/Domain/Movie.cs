@@ -17,8 +17,5 @@ public class Movie : IEntity
     public string FeaturedImage { get; set; } = null!;
     public string BannerImage { get; set; } = null!;
 
-    public ICollection<Cinema> Cinemas { get; set; } = new List<Cinema>();
-    //public ICollection<Guid> CinemaGuid { get; set; } = new List<Guid>();
-
     public ICollection<MovieSchedule> Schedules { get; set; } = new List<MovieSchedule>();
 }

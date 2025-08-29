@@ -1,12 +1,9 @@
-﻿using WinWinCinema.Api.Domain.SupportTickets;
-
-namespace WinWinCinema.Api.Data;
+﻿namespace WinWinCinema.Api.Data;
 
 public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
-        
     }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Cinema> Cinemas { get; set; }

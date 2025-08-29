@@ -17,7 +17,8 @@ namespace WinWinCinema.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCinemas()
         {
-            var cinemas = await _unitOfWork.CinemaRepository.GetAllAsync();
+            var cinemas = await _unitOfWork.CinemaRepository
+                .GetAllWithIncludesAsync(c => c.Barangay, c => c.City);
             return Ok(cinemas);
         }
 

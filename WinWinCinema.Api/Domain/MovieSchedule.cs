@@ -21,6 +21,12 @@ public class MovieSchedule : IEntity
     public Guid CinemaId { get; set; }
     public Cinema? Cinema { get; set; }
 
+    [ForeignKey(nameof(MovieId))]
+    public Guid MovieId { get; set; }
+    public Movie? Movie { get; set; }
+
+    public ICollection<CompletedOrder> CompletedOrders { get; set; } = new List<CompletedOrder>();
+
     //public ICollection<Seat> LeftWingSeats { get; set; } = new List<Seat>();
     //public ICollection<Seat> CenterSeats { get; set; } = new List<Seat>();
     //public ICollection<Seat> RightWingSeats { get; set; } = new List<Seat>();

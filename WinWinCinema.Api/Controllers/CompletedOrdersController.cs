@@ -17,7 +17,8 @@ namespace WinWinCinema.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCompletedOrders()
         {
-            var completedOrders = await _unitOfWork.CompletedOrderRepository.GetAllAsync();
+            var completedOrders = await _unitOfWork.CompletedOrderRepository
+                .GetAllWithIncludesAsync(co => co.Schedule);
             return Ok(completedOrders);
         }
 
