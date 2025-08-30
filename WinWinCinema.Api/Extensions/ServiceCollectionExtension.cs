@@ -13,6 +13,9 @@ internal static class ServiceCollectionExtension
         services.AddAutoMapper(cfg => cfg.AddProfile<LocationProfile>());
         services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         services.AddScoped<ILocationService, LocationService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAddressService, AddressService>();
+        //services.AddScoped<ICinemaService, CinemaService>();
         return services;
     }
 

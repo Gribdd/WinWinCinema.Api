@@ -1,4 +1,6 @@
 using AutoFixture;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Moq;
 using WinWinCinema.Api.Domain;
 using WinWinCinema.Api.Mappings;
@@ -26,12 +28,10 @@ namespace WinWinCinema.UnitTests.Services
                 .ReturnsAsync(fakeLocations);
 
 
-            var config = new global::AutoMapper.MapperConfiguration(cfg =>
-            {
+            var mapper = new MapperConfiguration(cfg => {
                 cfg.AddProfile<LocationProfile>();
-            });
+            }, new LoggerFactory()).CreateMapper();
 
-            var mapper = config.CreateMapper();
 
             var locationService = new LocationService(mockUnitOfWork.Object, mapper);
 
